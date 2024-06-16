@@ -12,7 +12,7 @@ import (
 	"github.com/patrickmn/expirable-cache"
 )
 
-// CacheEntry represents an entry in the LRU cache
+//  represents an entry in the LRU cache
 type CacheEntry struct {
 	Key         string    `json:"key"`
 	Value       string    `json:"value"`
@@ -53,7 +53,7 @@ func (c *LRUCache) Get(key string) (*CacheEntry, error) {
 	}, nil
 }
 
-// Set adds or updates a value in the cache with expiration time
+// Set add or update a value in the cache with expiration time
 func (c *LRUCache) Set(key, value string, expiration time.Duration) error {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
@@ -64,7 +64,7 @@ func (c *LRUCache) Set(key, value string, expiration time.Duration) error {
 		return nil
 	}
 
-	// Add new item
+	// Add a new item
 	c.cache[key] = expirable.New(value, expiration)
 	c.lruList = append(c.lruList, key)
 
@@ -92,7 +92,7 @@ func (c *LRUCache) Delete(key string) error {
 	return nil
 }
 
-// API Handlers
+// API Handler
 
 func getHandler(cache *LRUCache) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
